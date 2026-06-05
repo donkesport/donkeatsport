@@ -1,0 +1,116 @@
+# =============================================================================
+# SECRETS & VARIABLES D'ENVIRONNEMENT
+# =============================================================================
+secrets/env.dev
+secrets/env.prod
+secrets/*.txt
+secrets/*.key
+ 
+# Garder le dossier et les fichiers d'exemple
+!secrets/.gitkeep
+!secrets/env.dev.example
+!secrets/env.prod.example
+ 
+# Fichiers .env à la racine du projet (sécurité)
+_env.*
+.env
+.env.*
+
+# =============================================================================
+# CERTIFICATS TLS (auto-signés ou non)
+# =============================================================================
+docker/nginx/certs/
+
+# =============================================================================
+# DOCKER
+# =============================================================================
+# Fichiers générés par Docker Desktop
+.docker/
+docker/mysql/data/
+
+# =============================================================================
+# LARAVEL (src/donkeatsport)
+# =============================================================================
+ 
+# Dépendances PHP (reconstruites via composer install)
+src/donkeatsport/vendor/
+ 
+# Dépendances JS (reconstruites via npm install)
+src/donkeatsport/node_modules/
+ 
+# Assets compilés (générés via npm run build)
+src/donkeatsport/public/build/
+src/donkeatsport/public/fonts-manifest.dev.json
+src/donkeatsport/public/hot/         # Serveur HMR Vite (dev uniquement)
+src/donkeatsport/public/storage/     # Lien symbolique généré par artisan storage:link
+ 
+# SSR (généré par Vite si activé)
+src/donkeatsport/bootstrap/ssr/
+ 
+# Fichiers d'environnement Laravel
+src/donkeatsport/.env
+src/donkeatsport/.env.backup
+src/donkeatsport/.env.production
+
+# Cache & logs Laravel
+src/donkeatsport/storage/logs/*
+src/donkeatsport/storage/framework/cache/*
+src/donkeatsport/storage/framework/sessions/*
+src/donkeatsport/storage/framework/testing/*
+src/donkeatsport/storage/framework/views/*
+src/donkeatsport/bootstrap/cache/*
+!src/donkeatsport/storage/logs/.gitkeep
+!src/donkeatsport/storage/framework/cache/.gitkeep
+!src/donkeatsport/storage/framework/sessions/.gitkeep
+!src/donkeatsport/storage/framework/testing/.gitkeep
+!src/donkeatsport/storage/framework/views/.gitkeep
+!src/donkeatsport/bootstrap/cache/.gitkeep
+ 
+# Clés et fichiers sensibles Laravel
+src/donkeatsport/storage/*.key
+src/donkeatsport/.auth.json
+ 
+# Tests
+src/donkeatsport/.phpunit.cache/
+src/donkeatsport/.phpunit.result.cache
+ 
+# Wayfinder (généré automatiquement par Laravel)
+src/donkeatsport/resources/js/actions/
+src/donkeatsport/resources/js/routes/
+src/donkeatsport/resources/js/wayfinder/
+ 
+# Laravel Pail (logs en temps réel)
+src/donkeatsport/storage/pail/
+ 
+# Debug logs npm/yarn
+src/donkeatsport/npm-debug.log
+src/donkeatsport/yarn-error.log
+
+# =============================================================================
+# VUE.JS / VITE
+# =============================================================================
+src/donkeatsport/.vite/              # Cache interne Vite
+src/donkeatsport/dist/               # Dossier de build alternatif (si utilisé)
+ 
+# =============================================================================
+# ÉDITEURS & IDE
+# =============================================================================
+# VSCode
+.vscode/
+src/donkeatsport/.vscode/
+ 
+# JetBrains (PhpStorm, WebStorm...)
+.idea/
+src/donkeatsport/.idea/
+ 
+# Fleet (JetBrains)
+src/donkeatsport/.fleet/
+ 
+# Nova (macOS)
+src/donkeatsport/.nova/
+ 
+# Zed
+src/donkeatsport/.zed/
+ 
+# PHPActor (LSP PHP)
+src/donkeatsport/.phpactor.json

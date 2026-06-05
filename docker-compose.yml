@@ -1,0 +1,75 @@
+services:
+  # L'application PHP
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: laravel-app
+    restart: unless-stopped
+    working_dir: /var/www/donkeatsport
+    networks:
+      - laravel-network
+    healthcheck:
+      test: ["CMD-SHELL","pidof php-fpm || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    
+  # Le serveur Web
+  nginx:
+    image: nginx:alpine
+    container_name: laravel-nginx
+    restart: unless-stopped
+    networks:
+      - laravel-network
+
+  # La base de données
+  db:
+    image: mysql:8.0
+    container_name: laravel-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./docker/mysql/conf.d:/etc/mysql/conf.d:ro # ← config MySQL (lecture seule)
+    networks:
+      - laravel-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$${MYSQL_ROOT_PASSWORD}"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+# Le service Reverb pour les notifications en temps réel
+  reverb:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: laravel-reverb
+    restart: unless-stopped
+    working_dir: /var/www/donkeatsport
+    command: php artisan reverb:start --host=0.0.0.0 --port=8080
+    networks:
+      - laravel-network
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z localhost 8080 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+    depends_on:
+      db:
+        condition: service_healthy
+
+networks:
+  laravel-network:
+    driver: bridge
+
+volumes:
+  dbdata:

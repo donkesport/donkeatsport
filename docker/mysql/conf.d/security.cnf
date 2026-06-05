@@ -1,0 +1,14 @@
+[mysqld]
+# Désactive le chargement de fichiers locaux (protection injection)
+local_infile = 0
+
+# Limite la taille des paquets (protection DoS)
+max_allowed_packet = 16M
+
+# Désactive le symbolic-links (protection path traversal)
+symbolic-links = 0
+
+# Logs des requêtes lentes (détection d'anomalies)
+slow_query_log = 1
+slow_query_log_file = /var/log/mysql/slow.log
+long_query_time = 2

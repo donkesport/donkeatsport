@@ -1,0 +1,47 @@
+# Contrôle de version
+.git
+.gitignore
+.gitattributes
+
+# Docker
+docker/
+docker/mysql/data/
+docker-compose*.yml
+.dockerignore
+Makefile
+
+# Secrets
+secrets/
+*.env
+.env*
+
+# Dépendances
+src/donkeatsport/vendor/
+src/donkeatsport/node_modules/
+
+# Cache et logs Laravel
+src/donkeatsport/storage/logs/*
+src/donkeatsport/storage/framework/cache/*
+src/donkeatsport/storage/framework/sessions/*
+src/donkeatsport/storage/framework/testing/*
+src/donkeatsport/storage/framework/views/*
+src/donkeatsport/bootstrap/cache/*
+
+# Tests
+src/donkeatsport/tests/
+src/donkeatsport/phpunit.xml
+src/donkeatsport/.phpunit.result.cache
+
+# IDE & OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+
+# Documentation
+README.md
+CHANGELOG.md
